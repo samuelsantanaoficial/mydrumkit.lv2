@@ -12,6 +12,7 @@
 #include <string>
 
 #define MYDRUMKIT_URI "http://realsigmamusic.com/plugins/mydrumkit"
+#define NUM_OUTPUTS 12
 
 // Estrutura de um sample carregado (mono ou estéreo)
 struct Sample {
@@ -54,13 +55,13 @@ struct Voice {
 struct MyDrumKit {
     std::map<int, RRGroup> rr_groups;  // nota MIDI -> grupo round robin
     std::vector<Voice> voices;
-    float* outputs[8];
+    float* outputs[NUM_OUTPUTS];
     const LV2_Atom_Sequence* midi_in;
     LV2_URID midi_event_urid;
 
     // Construtor
     MyDrumKit() : midi_in(nullptr), midi_event_urid(0) {
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < NUM_OUTPUTS; ++i) {
             outputs[i] = nullptr;
         }
     }
@@ -203,51 +204,125 @@ static LV2_Handle instantiate(const LV2_Descriptor* desc,
     try {
         fprintf(stderr, "MyDrumKit: Carregando samples com Round Robin...\n");
 
-        // CRASH (nota 49) - saída 6/7 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 49, bundle_path, "samples/crash1_edge_v1_r1.wav", 6, true);
-        add_to_rr_group(self, 57, bundle_path, "samples/crash2_edge_v1_r1.wav", 6, true);
-
-        // HIHAT CLOSED (nota 42) - saída 2 (HiHat)
-        add_to_rr_group(self, 42, bundle_path, "samples/hihat_downclosed_v1_r1.wav", 2);
-        add_to_rr_group(self, 42, bundle_path, "samples/hihat_downclosed_v1_r2.wav", 2);
-
-        // HIHAT OPEN (nota 46) - saída 2 (HiHat)
-        add_to_rr_group(self, 46, bundle_path, "samples/hihat_downopen_v1_r1.wav", 2);
-        add_to_rr_group(self, 46, bundle_path, "samples/hihat_downopen_v1_r2.wav", 2);
-
-        // HIHAT PEDAL (nota 44) - saída 2 (HiHat)
-        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r1.wav", 2);
-
-        // KICK OPEN (nota 36) - saída 0 (Kick)
-        add_to_rr_group(self, 36, bundle_path, "samples/kick_open_v1_r1.wav", 0);
-
-        // KICK MUTED (nota 35) - saída 0 (Kick)
-        add_to_rr_group(self, 35, bundle_path, "samples/kick_muted_v1_r1.wav", 0);
-
-        // RIDE (nota 51) - saída 6/7 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r1.wav", 6, true);
+        // KICK (nota 36) - saída 0 (Kick)
+        add_to_rr_group(self, 36, bundle_path, "samples/kick_hit_v1_r1.wav", 0);
+        add_to_rr_group(self, 36, bundle_path, "samples/kick_hit_v1_r2.wav", 0);
+        add_to_rr_group(self, 36, bundle_path, "samples/kick_hit_v1_r3.wav", 0);
+        add_to_rr_group(self, 36, bundle_path, "samples/kick_hit_v1_r4.wav", 0);
 
         // SNARE CENTER (nota 38) - saída 1 (Snare)
         add_to_rr_group(self, 38, bundle_path, "samples/snare_center_v1_r1.wav", 1);
         add_to_rr_group(self, 38, bundle_path, "samples/snare_center_v1_r2.wav", 1);
+        add_to_rr_group(self, 38, bundle_path, "samples/snare_center_v1_r3.wav", 1);
+        add_to_rr_group(self, 38, bundle_path, "samples/snare_center_v1_r4.wav", 1);
 
         // SNARE RIMSHOT (nota 40) - saída 1 (Snare)
         add_to_rr_group(self, 40, bundle_path, "samples/snare_rimshot_v1_r1.wav", 1);
+        add_to_rr_group(self, 40, bundle_path, "samples/snare_rimshot_v1_r2.wav", 1);
+        add_to_rr_group(self, 40, bundle_path, "samples/snare_rimshot_v1_r3.wav", 1);
+        add_to_rr_group(self, 40, bundle_path, "samples/snare_rimshot_v1_r4.wav", 1);
 
         // SNARE SIDESTICK (nota 37) - saída 1 (Snare)
         add_to_rr_group(self, 37, bundle_path, "samples/snare_sidestick_v1_r1.wav", 1);
+        add_to_rr_group(self, 37, bundle_path, "samples/snare_sidestick_v1_r2.wav", 1);
+        add_to_rr_group(self, 37, bundle_path, "samples/snare_sidestick_v1_r3.wav", 1);
+        add_to_rr_group(self, 37, bundle_path, "samples/snare_sidestick_v1_r4.wav", 1);
 
-        // TOM 1 (nota 50) - saída 3 (Tom1)
-        add_to_rr_group(self, 50, bundle_path, "samples/tom1_center_v1_r1.wav", 3);
-        add_to_rr_group(self, 50, bundle_path, "samples/tom1_center_v1_r2.wav", 3);
+        // HIHAT CLOSED (nota 42) - saída 2 (HiHat)
+        add_to_rr_group(self, 42, bundle_path, "samples/hihat_downclosed_v1_r1.wav", 2);
+        add_to_rr_group(self, 42, bundle_path, "samples/hihat_downclosed_v1_r2.wav", 2);
+        add_to_rr_group(self, 42, bundle_path, "samples/hihat_downclosed_v1_r3.wav", 2);
+        add_to_rr_group(self, 42, bundle_path, "samples/hihat_downclosed_v1_r4.wav", 2);
 
-        // TOM 2 (nota 47) - saída 4 (Tom2)
-        add_to_rr_group(self, 47, bundle_path, "samples/tom2_center_v1_r1.wav", 4);
-        add_to_rr_group(self, 47, bundle_path, "samples/tom2_center_v1_r2.wav", 4);
+        // HIHAT OPEN (nota 46) - saída 2 (HiHat)
+        add_to_rr_group(self, 46, bundle_path, "samples/hihat_downopen_v1_r1.wav", 2);
+        add_to_rr_group(self, 46, bundle_path, "samples/hihat_downopen_v1_r2.wav", 2);
+        add_to_rr_group(self, 46, bundle_path, "samples/hihat_downopen_v1_r3.wav", 2);
+        add_to_rr_group(self, 46, bundle_path, "samples/hihat_downopen_v1_r4.wav", 2);
 
-        // TOM 3 / FLOOR TOM (nota 41) - saída 5 (Tom3)
-        add_to_rr_group(self, 41, bundle_path, "samples/tom3_center_v1_r1.wav", 5);
-        add_to_rr_group(self, 41, bundle_path, "samples/tom3_center_v1_r2.wav", 5);
+        // HIHAT PEDAL (nota 44) - saída 2 (HiHat)
+        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r1.wav", 2);
+        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r2.wav", 2);
+        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r3.wav", 2);
+        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r4.wav", 2);
+
+        // RACK TOM 1 (nota 50) - saída 3 (RackTom1)
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_center_v1_r1.wav", 3);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_center_v1_r2.wav", 3);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_center_v1_r3.wav", 3);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_center_v1_r4.wav", 3);
+
+        // RACK TOM 2 (nota 48) - saída 4 (RackTom2)
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_center_v1_r1.wav", 4);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_center_v1_r2.wav", 4);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_center_v1_r3.wav", 4);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_center_v1_r4.wav", 4);
+
+        // RACK TOM 3 (nota 47) - saída 5 (RackTom3)
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_center_v1_r1.wav", 5);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_center_v1_r2.wav", 5);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_center_v1_r3.wav", 5);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_center_v1_r4.wav", 5);
+
+        // FLOOR TOM 1 (nota 45) - saída 6 (FloorTom1)
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_center_v1_r1.wav", 6);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_center_v1_r2.wav", 6);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_center_v1_r3.wav", 6);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_center_v1_r4.wav", 6);
+
+        // FLOOR TOM 2 (nota 43) - saída 7 (FloorTom2)
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_center_v1_r1.wav", 7);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_center_v1_r2.wav", 7);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_center_v1_r3.wav", 7);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_center_v1_r4.wav", 7);
+
+        // FLOOR TOM 3 (nota 41) - saída 8 (FloorTom3)
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_center_v1_r1.wav", 8);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_center_v1_r2.wav", 8);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_center_v1_r3.wav", 8);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_center_v1_r4.wav", 8);
+
+        // CRASH 1 (nota 49) - saída 9/10 (Overhead L/R) - ESTÉREO
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_edge_v1_r1.wav", 9, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_edge_v1_r2.wav", 9, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_edge_v1_r3.wav", 9, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_edge_v1_r4.wav", 9, true);
+
+        // CRASH 2 (nota 57) - saída 9/10 (Overhead L/R) - ESTÉREO
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_edge_v1_r1.wav", 9, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_edge_v1_r2.wav", 9, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_edge_v1_r3.wav", 9, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_edge_v1_r4.wav", 9, true);
+
+        // RIDE BOW (nota 51) - saída 9/10 (Overhead L/R) - ESTÉREO
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r1.wav", 9, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r2.wav", 9, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r3.wav", 9, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r4.wav", 9, true);
+
+        // RIDE BELL (nota 53) - saída 9/10 (Overhead L/R) - ESTÉREO
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r1.wav", 9, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r2.wav", 9, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r3.wav", 9, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r4.wav", 9, true);
+
+        // CHINA (nota 52) - saída 9/10 (Overhead L/R) - ESTÉREO
+        add_to_rr_group(self, 52, bundle_path, "samples/china_edge_v1_r1.wav", 9, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_edge_v1_r2.wav", 9, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_edge_v1_r3.wav", 9, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_edge_v1_r4.wav", 9, true);
+
+        // SPLASH (nota 55) - saída 9/10 (Overhead L/R) - ESTÉREO
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_edge_v1_r1.wav", 9, true);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_edge_v1_r2.wav", 9, true);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_edge_v1_r3.wav", 9, true);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_edge_v1_r4.wav", 9, true);
+
+        // CLAP MULT (nota 39) - saída 11 (Percusion)
+        add_to_rr_group(self, 39, bundle_path, "samples/clap_multi_v1_r1.wav", 11);
+        add_to_rr_group(self, 39, bundle_path, "samples/clap_multi_v1_r2.wav", 11);
+        add_to_rr_group(self, 39, bundle_path, "samples/clap_multi_v1_r3.wav", 11);
+        add_to_rr_group(self, 39, bundle_path, "samples/clap_multi_v1_r4.wav", 11);
 
         // Log resumo
         fprintf(stderr, "MyDrumKit: %zu notas MIDI carregadas:\n", self->rr_groups.size());
@@ -273,7 +348,7 @@ static void connect_port(LV2_Handle instance, uint32_t port, void* data) {
 
     if (port == 0) {
         self->midi_in = (const LV2_Atom_Sequence*)data;
-    } else if (port >= 1 && port <= 8) {
+    } else if (port >= 1 && port <= NUM_OUTPUTS) {
         self->outputs[port - 1] = (float*)data;
     }
 }
@@ -284,7 +359,7 @@ static void run(LV2_Handle instance, uint32_t n_samples) {
     if (!self) return;
 
     // Limpa os buffers de saída
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < NUM_OUTPUTS; ++i) {
         if (self->outputs[i])
             std::memset(self->outputs[i], 0, sizeof(float) * n_samples);
     }
@@ -345,7 +420,7 @@ static void run(LV2_Handle instance, uint32_t n_samples) {
             }
 
             // Se for estéreo, renderiza canal R na próxima saída
-            if (dataR && v.output >= 0 && v.output < 7 && self->outputs[v.output + 1]) {
+            if (dataR && v.output >= 0 && v.output < NUM_OUTPUTS && self->outputs[v.output + 1]) {
                 self->outputs[v.output + 1][i] += dataR[v.pos];
             }
 

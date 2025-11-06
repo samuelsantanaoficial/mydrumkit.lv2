@@ -12,3 +12,6 @@ install:
 
 clean:
 	rm -f $(PLUGIN).so
+
+uninstall:
+	rm -r ~/.lv2/$(PLUGIN).lv2/

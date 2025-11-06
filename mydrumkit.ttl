@@ -10,7 +10,7 @@
     a lv2:Plugin, lv2:InstrumentPlugin ;
     doap:name "MyDrumKit" ;
     doap:maintainer [ foaf:name "Real Sigma Music" ] ;
-    rdfs:comment "Bateria acústica LV2 de 8 canais com Round Robin e suporte estéreo." ;
+    rdfs:comment "Bateria acústica LV2 de 12 canais com Round Robin e suporte estéreo." ;
 
     lv2:requiredFeature urid:map ;
     lv2:optionalFeature lv2:hardRTCapable ;
@@ -26,8 +26,12 @@
     [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 1 ; lv2:symbol "out1" ; lv2:name "Kick" ] ,
     [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 2 ; lv2:symbol "out2" ; lv2:name "Snare" ] ,
     [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 3 ; lv2:symbol "out3" ; lv2:name "HiHat" ] ,
-    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 4 ; lv2:symbol "out4" ; lv2:name "Tom 1" ] ,
-    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 5 ; lv2:symbol "out5" ; lv2:name "Tom 2" ] ,
-    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 6 ; lv2:symbol "out6" ; lv2:name "Tom 3" ] ,
-    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 7 ; lv2:symbol "out7" ; lv2:name "Overhead L" ] ,
-    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 8 ; lv2:symbol "out8" ; lv2:name "Overhead R" ] .
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 4 ; lv2:symbol "out4" ; lv2:name "RackTom1" ] ,
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 5 ; lv2:symbol "out5" ; lv2:name "RackTom2" ] ,
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 6 ; lv2:symbol "out6" ; lv2:name "RackTom3" ] ,
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 7 ; lv2:symbol "out7" ; lv2:name "FloorTom1" ] ,
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 8 ; lv2:symbol "out8" ; lv2:name "FloorTom2" ] ,
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 9 ; lv2:symbol "out9" ; lv2:name "FloorTom3" ] ,
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 10 ; lv2:symbol "out10" ; lv2:name "Overhead L" ] ,
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 11 ; lv2:symbol "out11" ; lv2:name "Overhead R" ] ,
+    [ a lv2:OutputPort , lv2:AudioPort ; lv2:index 12 ; lv2:symbol "out12" ; lv2:name "Percussion" ] .
