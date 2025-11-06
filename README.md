@@ -1,1 +1,1 @@
-# mydrumkit.lv2
+# MY DRUM KIT

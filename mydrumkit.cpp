@@ -4,15 +4,19 @@
 #include <lv2/midi/midi.h>
 #include <lv2/urid/urid.h>
 #include <sndfile.h>
+
 #include <vector>
 #include <map>
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
 #include <string>
+#include <algorithm>
+#include <cstdint>
 
 #define MYDRUMKIT_URI "http://realsigmamusic.com/plugins/mydrumkit"
 #define NUM_OUTPUTS 12
+#define MAX_VOICES 64
 
 // Estrutura de um sample carregado (mono ou estéreo)
 struct Sample {
@@ -29,9 +33,10 @@ struct Sample {
 struct RRGroup {
     std::vector<Sample> samples;
     uint32_t current_rr;  // índice atual do round robin
-    int output;           // saída de áudio (para mono, ou L para estéreo)
+    int output;           // saída de áudio (base)
+    int chokeGroup;       // grupo de choke (0 = nenhum)
 
-    RRGroup() : current_rr(0), output(0) {}
+    RRGroup() : current_rr(0), output(0), chokeGroup(0) {}
 
     const Sample* getNextSample() {
         if (samples.empty()) return nullptr;
@@ -47,8 +52,10 @@ struct Voice {
     uint32_t pos;
     uint32_t length;
     int output;
+    float velocity;   // 0.0 - 1.0
+    int chokeGroup;   // id do grupo de choke desta voz (0 = nenhum)
 
-    Voice() : sample(nullptr), pos(0), length(0), output(0) {}
+    Voice() : sample(nullptr), pos(0), length(0), output(0), velocity(1.0f), chokeGroup(0) {}
 };
 
 // Estrutura principal do plugin
@@ -241,10 +248,10 @@ static LV2_Handle instantiate(const LV2_Descriptor* desc,
         add_to_rr_group(self, 46, bundle_path, "samples/hihat_downopen_v1_r4.wav", 2);
 
         // HIHAT PEDAL (nota 44) - saída 2 (HiHat)
-        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r1.wav", 2);
-        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r2.wav", 2);
-        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r3.wav", 2);
-        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedalclosed_v1_r4.wav", 2);
+        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedal_v1_r1.wav", 2);
+        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedal_v1_r2.wav", 2);
+        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedal_v1_r3.wav", 2);
+        add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedal_v1_r4.wav", 2);
 
         // RACK TOM 1 (nota 50) - saída 3 (RackTom1)
         add_to_rr_group(self, 50, bundle_path, "samples/racktom1_center_v1_r1.wav", 3);
@@ -324,11 +331,16 @@ static LV2_Handle instantiate(const LV2_Descriptor* desc,
         add_to_rr_group(self, 39, bundle_path, "samples/clap_multi_v1_r3.wav", 11);
         add_to_rr_group(self, 39, bundle_path, "samples/clap_multi_v1_r4.wav", 11);
 
+        // Define grupos de choke (HiHat)
+        self->rr_groups[46].chokeGroup = 1; // open
+        self->rr_groups[42].chokeGroup = 1; // closed
+        self->rr_groups[44].chokeGroup = 1; // pedal
+
         // Log resumo
         fprintf(stderr, "MyDrumKit: %zu notas MIDI carregadas:\n", self->rr_groups.size());
         for (const auto& pair : self->rr_groups) {
-            fprintf(stderr, "  Nota %d: %zu variações RR -> saída %d\n",
-                    pair.first, pair.second.samples.size(), pair.second.output);
+            fprintf(stderr, "  Nota %d: %zu variações RR -> saída %d (choke %d)\n",
+                    pair.first, pair.second.samples.size(), pair.second.output, pair.second.chokeGroup);
         }
 
     } catch (const std::exception& e) {
@@ -382,21 +394,42 @@ static void run(LV2_Handle instance, uint32_t n_samples) {
                         const Sample* sample = group.getNextSample();
 
                         if (sample && !sample->dataL.empty()) {
+                            // Choke: remove vozes do mesmo grupo, se houver
+                            if (group.chokeGroup > 0) {
+                                self->voices.erase(
+                                    std::remove_if(self->voices.begin(), self->voices.end(),
+                                        [&](const Voice& existing) {
+                                            return existing.chokeGroup == group.chokeGroup;
+                                        }),
+                                    self->voices.end());
+                            }
+
                             Voice v;
                             v.sample = sample;
                             v.pos = 0;
                             v.length = sample->dataL.size();
                             v.output = group.output;
+                            v.chokeGroup = group.chokeGroup;
+                            v.velocity = (float)vel / 127.0f;
+                            if (v.velocity < 0.0f) v.velocity = 0.0f;
+                            if (v.velocity > 1.0f) v.velocity = 1.0f;
 
                             self->voices.push_back(v);
+
+                            // Limite simples de vozes
+                            if (self->voices.size() > MAX_VOICES) {
+                                self->voices.erase(self->voices.begin());
+                            }
                         }
                     }
                 }
+
+                // (Opcional) implementar NOTE OFF caso queira cortar vozes por nota específica.
             }
         }
     }
 
-    // Renderiza o áudio
+    // Renderiza o áudio: percorre vozes e mistura
     for (auto it = self->voices.begin(); it != self->voices.end();) {
         auto& v = *it;
 
@@ -415,13 +448,13 @@ static void run(LV2_Handle instance, uint32_t n_samples) {
 
         for (uint32_t i = 0; i < n_samples && v.pos < v.length; ++i) {
             // Renderiza canal L (ou mono)
-            if (v.output >= 0 && v.output < 8 && self->outputs[v.output]) {
-                self->outputs[v.output][i] += dataL[v.pos];
+            if (v.output >= 0 && v.output < NUM_OUTPUTS && self->outputs[v.output]) {
+                self->outputs[v.output][i] += dataL[v.pos] * v.velocity;
             }
 
-            // Se for estéreo, renderiza canal R na próxima saída
-            if (dataR && v.output >= 0 && v.output < NUM_OUTPUTS && self->outputs[v.output + 1]) {
-                self->outputs[v.output + 1][i] += dataR[v.pos];
+            // Se for estéreo, renderiza canal R na próxima saída (verifica bounds)
+            if (dataR && v.output >= 0 && (v.output + 1) < NUM_OUTPUTS && self->outputs[v.output + 1]) {
+                self->outputs[v.output + 1][i] += dataR[v.pos] * v.velocity;
             }
 
             v.pos++;
