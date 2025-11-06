@@ -455,7 +455,8 @@ static void run(LV2_Handle instance, uint32_t n_samples) {
                             v.length = sample->dataL.size();
                             v.output = group.output;
                             v.chokeGroup = group.chokeGroup;
-                            v.velocity = (float)vel / 127.0f;
+                            float v_norm = (float)vel / 127.0f;
+                            v.velocity = v_norm * v_norm;
                             if (v.velocity < 0.0f) v.velocity = 0.0f;
                             if (v.velocity > 1.0f) v.velocity = 1.0f;
 
