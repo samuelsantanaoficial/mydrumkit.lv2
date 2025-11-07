@@ -267,114 +267,117 @@ static LV2_Handle instantiate(const LV2_Descriptor* desc,
         add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedal_v1_r5.wav", 2);
         add_to_rr_group(self, 44, bundle_path, "samples/hihat_pedal_v1_r6.wav", 2);
 
+        // SNARE FX (nota 39) - saída 1 (Snare)
+        add_to_rr_group(self, 39, bundle_path, "samples/snare_v1_r1.wav", 3);
+        add_to_rr_group(self, 39, bundle_path, "samples/snare_v1_r2.wav", 3);
+        add_to_rr_group(self, 39, bundle_path, "samples/snare_v1_r3.wav", 3);
+        add_to_rr_group(self, 39, bundle_path, "samples/snare_v1_r4.wav", 3);
+        add_to_rr_group(self, 39, bundle_path, "samples/snare_v1_r5.wav", 3);
+        add_to_rr_group(self, 39, bundle_path, "samples/snare_v1_r6.wav", 3);
+
         // RACK TOM 1 (nota 50) - saída 3 (RackTom1)
-        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r1.wav", 3);
-        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r2.wav", 3);
-        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r3.wav", 3);
-        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r4.wav", 3);
-        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r5.wav", 3);
-        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r6.wav", 3);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r1.wav", 4);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r2.wav", 4);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r3.wav", 4);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r4.wav", 4);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r5.wav", 4);
+        add_to_rr_group(self, 50, bundle_path, "samples/racktom1_v1_r6.wav", 4);
 
         // RACK TOM 2 (nota 48) - saída 4 (RackTom2)
-        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r1.wav", 4);
-        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r2.wav", 4);
-        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r3.wav", 4);
-        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r4.wav", 4);
-        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r5.wav", 4);
-        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r6.wav", 4);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r1.wav", 5);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r2.wav", 5);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r3.wav", 5);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r4.wav", 5);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r5.wav", 5);
+        add_to_rr_group(self, 48, bundle_path, "samples/racktom2_v1_r6.wav", 5);
 
         // RACK TOM 3 (nota 47) - saída 5 (RackTom3)
-        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r1.wav", 5);
-        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r2.wav", 5);
-        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r3.wav", 5);
-        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r4.wav", 5);
-        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r5.wav", 5);
-        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r6.wav", 5);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r1.wav", 6);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r2.wav", 6);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r3.wav", 6);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r4.wav", 6);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r5.wav", 6);
+        add_to_rr_group(self, 47, bundle_path, "samples/racktom3_v1_r6.wav", 6);
 
         // FLOOR TOM 1 (nota 45) - saída 6 (FloorTom1)
-        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r1.wav", 6);
-        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r2.wav", 6);
-        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r3.wav", 6);
-        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r4.wav", 6);
-        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r5.wav", 6);
-        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r6.wav", 6);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r1.wav", 7);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r2.wav", 7);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r3.wav", 7);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r4.wav", 7);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r5.wav", 7);
+        add_to_rr_group(self, 45, bundle_path, "samples/floortom1_v1_r6.wav", 7);
 
         // FLOOR TOM 2 (nota 43) - saída 7 (FloorTom2)
-        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r1.wav", 7);
-        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r2.wav", 7);
-        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r3.wav", 7);
-        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r4.wav", 7);
-        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r5.wav", 7);
-        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r6.wav", 7);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r1.wav", 8);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r2.wav", 8);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r3.wav", 8);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r4.wav", 8);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r5.wav", 8);
+        add_to_rr_group(self, 43, bundle_path, "samples/floortom2_v1_r6.wav", 8);
 
         // FLOOR TOM 3 (nota 41) - saída 8 (FloorTom3)
-        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r1.wav", 8);
-        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r2.wav", 8);
-        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r3.wav", 8);
-        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r4.wav", 8);
-        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r5.wav", 8);
-        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r6.wav", 8);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r1.wav", 9);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r2.wav", 9);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r3.wav", 9);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r4.wav", 9);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r5.wav", 9);
+        add_to_rr_group(self, 41, bundle_path, "samples/floortom3_v1_r6.wav", 9);
 
         // CRASH 1 (nota 49) - saída 9/10 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r1.wav", 9, true);
-        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r2.wav", 9, true);
-        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r3.wav", 9, true);
-        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r4.wav", 9, true);
-        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r5.wav", 9, true);
-        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r6.wav", 9, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r1.wav", 10, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r2.wav", 10, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r3.wav", 10, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r4.wav", 10, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r5.wav", 10, true);
+        add_to_rr_group(self, 49, bundle_path, "samples/crash1_v1_r6.wav", 10, true);
 
         // CRASH 2 (nota 57) - saída 9/10 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r1.wav", 9, true);
-        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r2.wav", 9, true);
-        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r3.wav", 9, true);
-        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r4.wav", 9, true);
-        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r5.wav", 9, true);
-        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r6.wav", 9, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r1.wav", 10, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r2.wav", 10, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r3.wav", 10, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r4.wav", 10, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r5.wav", 10, true);
+        add_to_rr_group(self, 57, bundle_path, "samples/crash2_v1_r6.wav", 10, true);
 
         // RIDE BOW (nota 51) - saída 9/10 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r1.wav", 9, true);
-        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r2.wav", 9, true);
-        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r3.wav", 9, true);
-        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r4.wav", 9, true);
-        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r5.wav", 9, true);
-        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r6.wav", 9, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r1.wav", 10, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r2.wav", 10, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r3.wav", 10, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r4.wav", 10, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r5.wav", 10, true);
+        add_to_rr_group(self, 51, bundle_path, "samples/ride_bow_v1_r6.wav", 10, true);
 
         // RIDE BELL (nota 53) - saída 9/10 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r1.wav", 9, true);
-        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r2.wav", 9, true);
-        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r3.wav", 9, true);
-        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r4.wav", 9, true);
-        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r5.wav", 9, true);
-        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r6.wav", 9, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r1.wav", 10, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r2.wav", 10, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r3.wav", 10, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r4.wav", 10, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r5.wav", 10, true);
+        add_to_rr_group(self, 53, bundle_path, "samples/ride_bell_v1_r6.wav", 10, true);
 
         // RIDE EDGE (nota 59) - saída 9/10 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r1.wav", 9, true);
-        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r2.wav", 9, true);
-        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r3.wav", 9, true);
-        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r4.wav", 9, true);
-        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r5.wav", 9, true);
-        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r6.wav", 9, true);
+        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r1.wav", 10, true);
+        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r2.wav", 10, true);
+        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r3.wav", 10, true);
+        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r4.wav", 10, true);
+        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r5.wav", 10, true);
+        add_to_rr_group(self, 59, bundle_path, "samples/ride_edge_v1_r6.wav", 10, true);
 
         // CHINA (nota 52) - saída 9/10 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r1.wav", 9, true);
-        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r2.wav", 9, true);
-        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r3.wav", 9, true);
-        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r4.wav", 9, true);
-        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r5.wav", 9, true);
-        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r6.wav", 9, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r1.wav", 10, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r2.wav", 10, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r3.wav", 10, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r4.wav", 10, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r5.wav", 10, true);
+        add_to_rr_group(self, 52, bundle_path, "samples/china_v1_r6.wav", 10, true);
 
         // SPLASH (nota 55) - saída 9/10 (Overhead L/R) - ESTÉREO
-        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r1.wav", 9, true);
-        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r2.wav", 9, true);
-        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r3.wav", 9, true);
-        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r4.wav", 9, true);
-        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r5.wav", 9, true);
-        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r6.wav", 9, true);
-
-        // CLAP MULT (nota 39) - saída 11 (Percusion)
-        add_to_rr_group(self, 39, bundle_path, "samples/clap_v1_r1.wav", 11);
-        add_to_rr_group(self, 39, bundle_path, "samples/clap_v1_r2.wav", 11);
-        add_to_rr_group(self, 39, bundle_path, "samples/clap_v1_r3.wav", 11);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r1.wav", 10, true);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r2.wav", 10, true);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r3.wav", 10, true);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r4.wav", 10, true);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r5.wav", 10, true);
+        add_to_rr_group(self, 55, bundle_path, "samples/splash_v1_r6.wav", 10, true);
 
         // Define grupos de choke (HiHat)
         self->rr_groups[46].chokeGroup = 1; // open
